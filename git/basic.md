@@ -115,15 +115,15 @@ origin  https://github.com/seo1511kr/TIL.git (push)
 
 | 명령어                       | 설명                       |
 | ---------------------------- | -------------------------- |
-|~	|홈폴더|
-|cd -|	뒤로가기|
-|cd ..	|위로가기|
-|taptap	|이름 불러오기|
-|esc >> :q!	|git commit 상태 빠져나오기|
-|mv <1> <2>|	1번 파일 2번으로 이름변경|
-|rm <1>	|1번 파일 삭제하기|
-|git restore	|복구?|
-|git restore --staged	modifed |상태 이전으로 회귀|
+|`~`	|홈폴더|
+|`cd -`|	뒤로가기|
+|`cd ..`	|위로가기|
+|`taptap`	|이름 불러오기|
+|`esc >> :q!`	|git commit 상태 빠져나오기|
+|`mv <1> <2>`|	1번 파일 2번으로 이름변경|
+|`rm <1>`	|1번 파일 삭제하기|
+|`git restore`	|복구?|
+|`git restore --staged	modifed` |상태 이전으로 회귀|
 
 
 
