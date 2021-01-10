@@ -1,0 +1,6 @@
+hello
+niceto meetyou
+good bye
+1번째줄 추가
+2번째줄 추가
+3번째줄 추가
