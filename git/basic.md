@@ -2,12 +2,25 @@
 
 ## git 이란?
 
+### What
 
+git은 SCM(source code manager), 혹은 VCSs(버전 컨트롤 시스템)
+
+버전 관리가 가능한 폴더라고 생각하면 됨
+
+github은 이러한 폴더들의 클라우드 개념
+
+### why
+
+github을 배우는 이유는 오픈소스 커뮤니티에 참여하기 위해서임
+
+github은 개발자들의 sns, 클라우드, 채용사이트
 
 ## git 설치
 
 1. git-scm.com 에서 다운로드
 2. 계속 next 로 설치
+3. 윈도우 탐색창에 git bash 클릭
 
 
 
@@ -37,7 +50,7 @@ $ git config user.email
 
 ### 상태 점검
 
-
+```$ git status```
 
 
 
@@ -47,6 +60,9 @@ $ git config user.email
 
 ```
 $ git init
+기본 폴더에 버전관리 기능 추가 (master)
+
+$ ls -a 로 확인해보면 .git이 추가된 것을 볼 수 있음
 ```
 
 
@@ -78,6 +94,38 @@ $ git init
 | ----------- | -------------------- |
 | `$ git log` | 작업목록을 확인한다. |
 
+### 원격 저장소 등록하기
+
+```
+#git remote add origin https://github.com/seo1511kr/TIL.git(remote 등록)
+>>local repo를 여러개의 remote repo와 연동할 수 있음
+>>git remote add가 고정 명령어고 origin은 그냥 이름을 붙인 것
+>>git remote add 추가리포(이름) hellow.world(주소) 도 가능
+```
+
+```
+#git remote -v (상태확인)
+origin  https://github.com/seo1511kr/TIL.git (fetch)
+origin  https://github.com/seo1511kr/TIL.git (push)
+
+#git remote rm 추가리포 (리모트 지우기)
+```
+
+### 명령어
+
+| 명령어                       | 설명                       |
+| ---------------------------- | -------------------------- |
+|~	|홈폴더|
+|cd -|	뒤로가기|
+|cd ..	|위로가기|
+|taptap	|이름 불러오기|
+|esc >> :q!	|git commit 상태 빠져나오기|
+|mv <1> <2>|	1번 파일 2번으로 이름변경|
+|rm <1>	|1번 파일 삭제하기|
+|git restore	|복구?|
+|git restore --staged	modifed |상태 이전으로 회귀|
+
+
 
 
 ## Summary
@@ -89,8 +137,6 @@ $ git init
 | `$ git status`                     | 상황을 알 수 있다.                                  |
 | `$ git commit -m "commit message"` | Stage를 massage를 작성하여commit 한다               |
 | `$ git log`                        | 작업들을 조회할 수 있다.                            |
-
-
 
 
 
