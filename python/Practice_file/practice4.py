@@ -100,6 +100,15 @@ for i in range(2,101):
     if prime:
         print(i,end=" ")
 
+import math
+def use_sqrt_prime(num):
+    for i in range(2, int(math.sqrt(num))+1):
+        if num % i == 0:
+            print('{0}은(는) 소수가 아닙니다'.format(num))
+            break
+        print('{0}은(는) 소수입니다'.format(num))
+        break
+
 # 선생님 답
 for num in range(2,101):
     for i in range(2,num+1):
