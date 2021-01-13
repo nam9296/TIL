@@ -113,6 +113,29 @@ def transMos(mos):
 
 transMos(mos)
 
+# 강사님이 푸는 4번 문제
+
+dic = {
+    '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', '..-.': 'F',
+    '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', '-.-': 'K', '.-..': 'L',
+    '--': 'M', '-.': 'N', '---': 'O', '.--.': 'P', '--.-': 'Q', '.-.': 'R',
+    '...': 'S', '-': 'T', '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X',
+    '-.--': 'Y', '--..': 'Z'
+}
+
+def morse(src):
+    res=[]
+    for word in src.split("  "): # word에는 단어가 저장, 입력된 문장에 저장된 단어 3개
+        # print(word)
+        for c in word.split(" "): # c에는 문자가 저장
+            # print(c)
+            res.append(dic[c])
+        res.append(" ")
+    return "".join(res)
+
+print(morse('.... .  ... .-.. . . .--. ...  . .- .-. .-.. -.--'))
+
+
 
 '''
 5. ngram 기반 두 문장 유사도 구하기(n=2, 3)
@@ -153,5 +176,41 @@ percent_text(text1,text2,2)
 percent_text(text1,text2,3)
 
 
+# 강사님이 푸는 5번문제
 
 
+
+def ngram(s,num):
+    res=[]
+    slen=len(s)-num+1 # 28-2+1 =27개의 단어
+    for i in range(slen):
+        ss = s[i:i+num]
+        res.append(ss)
+    return res
+
+
+def diff_ngram(sa,sb,num):
+    a = ngram(sa,num)
+    b = ngram(sb,num)
+    cnt=0 # 일치한 단어의 계수를 저장하기 위한 변수
+    r=[] # 일치한 단어를 저장하기 위한 변수
+    for i in a:
+        for j in b:
+            if i==j:
+                cnt += 1
+                r.append(i)
+    return cnt/len(a), r
+
+a = "오늘 멀티캠퍼스에서 너무 쉬운 프로그래밍을 공부했다"
+b = "멀티캠퍼스에서 공부했던 오늘의 프로그래밍은 너무 쉬웠다"
+
+
+r2,word2 = diff_ngram(a,b,2)
+print("2-gram",r2, word2) # 유사도, bigram으로 묶인 단어셋
+
+r3,word3 = diff_ngram(a,b,3)
+print("3-gram",r3, word3)
+
+# 수정사항
+#1) 중복 허용 안되도록 ...
+#2) 두 문장에서 길이가 긴 문장의 단어 개수를 분모
