@@ -1,0 +1,33 @@
+<head>
+.box{
+.hover-box:hover {     =>마우스를 올려놨을때 변화
+
+<body>
+<div class="box hover-box" >마우스를 올려주세요</div>
+
+.focus-input:focus     => 클릭할시 변화를 줌
+<input type="text" value="click me" class="focus-input"></input>
+
+마진 : 바깥쪽  
+4개일때 위 오른 아래 왼 
+3개일때 위 좌우 아래
+2개 일때 상하 좌우
+(시계방향)
+margin:100px  
+margin:50px 10px   상하 좌우
+margin:10px 20px 30px 40px   위 오른 아래 왼
+margin:10px 20px 30px   위 좌우 아래
+패딩 : 안쪽 여백
+
+
+<div style="color:rgba(255,0,0,1)">text</div>
+a는 알파(alpha) , 알파는 불투명도 속성
+
+
+이미지 삽입 
+style안에
+#box2-1{
+        width:100px;
+        height:100px;
+        background-image:url("earth.jpg)
+        }
