@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <script>
+
+
+
+
+
+
+    //객체는 파이썬의 딕셔너리{키:값, 키:값, ...}와 비슷
+    // 홍길동 객체를 생성하는 과정
+    // 사람클래스 -> 홍길동 객체 생성
+    // 첫번째 방법
+     /*var hgd={};
+    hgd['name']='honggildong';
+    hgd['age']=28;
+    hgd['gender']='m';
+    document.write(hgd['name']);*/
+
+    // 두번째 방법
+    /*var hgd={
+    'name':'honggildong',
+    'age':28,
+    'gender':'m'
+    };
+    document.write(hgd['name']);
+
+    hgd.birth=1994;
+    document.write(hgd['birth']);*/
+
+    // 세번째 방법 new이용
+    /*var hgd=new Object();
+    hgd['name']='honggildong';
+    hgd['age']=28;
+    hgd['gender']='m';
+    // alert(hgd['name']);
+    for(k in hgd){
+        document.write(k+"<br/>");
+        }
+        */
+    // 사람클래스 (속성- 성별,나이, 이름,...;동작(함수,메서드) 숨쉰다 먹는다 잔다 -> 객체
+/*
+    //객체의 속성과 메서드를 표현
+    var hgd={
+
+    //속성정의
+    'list':{
+        'name':'honggildong',
+        'age':28,
+        'gender':'m'},
+
+    //메서드 정의 , this(지금 현재의 객체를 지칭) 파이썬에서 self
+    'show':function(){
+        for(var n in this.list){
+            document.write(n+":"+this.list[n]+"<br/>");
+            }
+        }
+
+    };
+    hgd.show();*/
+
+
+
+
+
+
+    /*
+        var fruits=['apple','banana','orange'];
+        fruits.sort();
+        fruits.reverse();
+        document.write(fruits+"<br/>");*/
+
+
+
+    /*
+        var arr=[1,2,3,4];
+        document.write(arr.indexOf(3));
+
+        var fruits=['apple','banana','orange'];
+        var v=fruits.splice(1,2);
+        document.write(v+"<br/>");
+        document.write(fruits+"<br/>");*/
+        /*
+        var arr=[1,2,3,4];
+        arr.unshift(999);
+        alert(arr)
+        document.write(arr.shift());
+        document.write(arr);
+        */
+
+
+
+
+        /*
+        var arr=[1,2,3,4];
+        //alert(arr.length);
+        arr.push(5); // 5가 추가됨
+        alert(arr);
+        p=arr.pop();
+        document.write(p)*/
+    </script>
+</head>
+<body>
+
+</body>
+</html>
