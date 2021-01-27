@@ -1,0 +1,47 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var coworkers={
+    "programmer":"kim",
+    "designer":"lee"
+}
+
+document.write("개발자명:"+coworkers.programmer+"<br>");
+document.write("디자이너:"+coworkers.designer+"<br>");
+coworkers["dataScientist"]="park";
+document.write("데이터과학자:"+coworkers.dataScientist+"<br>");
+coworkers.doctor="nam";
+document.write("의사:"+coworkers.doctor+"<br>");
+
+    /*for(var key in coworkers){
+    document.write(key + "  :  "+coworkers[key]+"<br>");
+    }*/
+
+
+
+
+
+
+</script>
+
+
+
+<h2>객체에 메서드(함수) 정의</h2>
+<script>
+    coworkers.showAll=function(){
+    for(var key in this){
+    document.write(key + "  :  " + this[key]+"<br>");
+    }
+}
+
+coworkers.showAll();
+
+</script>
+</body>
+</html>-->
