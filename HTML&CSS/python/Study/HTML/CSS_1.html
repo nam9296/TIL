@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+<!--css 작성 3가지 방법-->
+<!--1. html문서의 style 속성-->
+<!--<div style="color:red">문서 입니다.</div>-->
+<!--<2. <style>태그를 이용하여 html문서에 css 작성&ndash;&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    my-text라는 이름의 클래스로 묶인 내용의 글자 색상을 파랑색으로 설정-->
+<!--    <style type="text/css">-->
+<!--        .my-text{color:blue}-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--    <div class="my-text">this is blue</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--css 선택자 종류 3가지: 태그선택자, id선택자, class 선택자-->
+
+<!--1. 태그 선택자-->
+<!--태그이름{속성1:속성1값; .....}-->
+<!--<html>
+<head>
+    <style>
+
+        h5{color:#F00}
+        h6{color:#00F;font-size:20px}
+    </style>
+</head>
+<h4>h4태그</h4>
+<h5>h5태그</h5>
+<h6>h6태그</h6>
+
+</html>-->
+
+<!--2. id선택자, 3. class선택자-->
+<!--#아이디{속성1:속성1값;...}-->
+<!--
+<html>
+<head>
+    <style>
+        #mybox{background-color:#09c; width=200px; height:50px}
+        .yourbox{border:2px solid green
+    </style>
+</head>
+<body>
+    <div id="mybox">mybox클래스로 정의된 스타일</div>
+    <div class="yourbox">클래스 스타일 적용</div>
+
+</body>
+</html>-->
+
+
+<!--부모 자식 선택자
+선택자1 선택자2{속성1:속성값; 속성2:속성값;}
+부모 태그 하위에 있는 자식 태그 스타일을 적용-->
+
+<!--<html>
+<head>
+    <style>
+        div.yellow_box{background-color:yellow;}
+        div.sb_box span{background-color:skyblue;}
+        div#c_box span{text-algn:center;padding:10px;color:green}
+        div span.blue_span{background-color:blue}
+
+        .aa>.cc{background-color:yellow}
+        .xx .yy{background-color:skyblue}
+    </style>
+</head>
+<body>
+<div class="xx">
+    <div class="yy">
+        xx와 yy클래스에서 꺽쇠는 부모 자식간의 직접적인 관계
+    </div>
+</div>
+
+<div class="xx">
+    <div class="kk">
+        <div class="yy">
+        xx와 yy클래스사이에 kk가 있지만 실행됩니다
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="aa">
+    <div class="cc">
+        aa와cc클래스에서 꺽쇠는 부모 자식간의 직접적인 관계
+    </div>
+</div>
+
+<div class="aa">
+    <div class="bb">
+        <div class="cc">aa와 cc클래스 사이에 bb클래스가 있음</div>
+    </div>
+
+
+
+</div>
+
+
+
+
+&lt;!&ndash;div태그 하위에 span태그가 있고 span태그의 클래스명이 blue_span으로 정의된&ndash;&gt;
+&lt;!&ndash;영역에 대해 배경색을 파란색으로 설정&ndash;&gt;
+<div>
+    <span class="blue_span"> 이 영역은 퀴즈에 해당됩니다</span>
+
+</div>
+
+
+<div id="c_box">
+    <span>
+        cbox부분 입니다
+    </span>
+</div>
+<div>div태그 부분입니다.</div>
+<div class="yellow_box">div태그 yellow_box부분입니다.</div>
+<div class="sb_box">
+    <span>
+        div태그 yellow_box span부분입니다
+    </span>
+</div>
+
+</body>
+</html>-->
+
+
+<!--다중 조건 선택자 : AND, OR-->
+
+<!--OR조건-->
+<!--:쉼표로 여러 선택자 중 어느 하나 이상의 선택자를 만족하는 대상에 대해 스타일을 적용-->
+<!--#아이디,  (띄어쓰기) .클래스명-->
+<!--태그이름. (띄어쓰기).클래스명-->
+
+
+<!--
+
+<html>
+<head>
+    <style>
+        div#m_box{color:blue;}
+        div.box{color:red;}
+        div, .box{color:skyblue;}
+    </style>
+</head>
+    <div id="m_box">mbox</div>
+<div class="box">box</div>
+<div>div태그</div>
+<span class="box">span</span> &lt;!&ndash;span이라는 조건이 없지만 성립함&ndash;&gt;
+</html>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

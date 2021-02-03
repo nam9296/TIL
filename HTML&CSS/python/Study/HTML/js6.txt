@@ -1,0 +1,29 @@
+<form action="실행 app의 위치(주소)">
+아이디 
+	비밀번호	
+	...
+	회원가입 버튼 클릭 -> 실행 app위치 (주소)
+</form>
+
+
+
+method=""
+get방식 : www.aaa.com?id=F3F2....&addr=%F3...
+post방식 : 포장해서 전송   get보다 담을 수 있는 크기가 크다 .
+
+
+
+
+<form action="실행app의 위치(주소)">
+    <fieldset> : form 내의 요소들을 그룹으로 묶어주는 태그
+	<legend>개인정보</legend>
+	<label></label>라벨이라고 부름 메세지를 보여주기위한 태그
+		레이블 : 분류결과(데이터 모델-> 예측 결과(pass/fail)
+	 	
+    </fieldset>
+
+</form>
+
+
+<!--        form 안에 작성된 내용을 서버로 전송하는 역할을 담당-->
+        <input type="submit" value="서버로 전송">

@@ -1,0 +1,71 @@
+클래스(붕어빵 기계)는 실체(객체:붕어빵)가 없다
+js에서는 객체를 딕셔너리로 구성한다
+클래스 = 속성+메서드(함수)
+
+
+			자동차(달린다)
+드론자동차 ( 하늘을 난다 + 달린다)
+
+드론자동차 클래스 -> 드론승용차 객체 생성
+
+
+
+js5-2
+배열만들기
+<script>
+    var a=['test','test2'];
+    a[0];
+    a[1];
+</script>
+
+
+
+
+객체를 딕셔너리 형태로 표현하므로 순서가 없다 
+ 중괄호를 사용함
+
+
+객체 생성 객체명 : coworkers
+<script>
+    var coworkers={
+    "programmer":"kim",
+    "designer":"lee"
+}
+</script>
+
+"programmer":속성(딕셔너리의 key와 같음)
+"kim" : 속성값(딕셔너리의 value와 같음)
+
+
+객체에 속성을 추가할 때  2가지 방법
+
+document.write("개발자명:"+coworkers.programmer+"<br>");
+document.write("디자이너:"+coworkers.designer+"<br>");
+
+1.coworkers["dataScientist"]="park"
+document.write("데이터과학자:"+coworkers.dataScientist+"<br>");
+
+2.coworkers.doctor="nam"
+document.write("의사:"+coworkers.doctor+"<br>");
+
+
+
+
+javascript에서 정규식을 표현하는 방법 2가지
+
+1.   
+<script>
+    var re=/ab+c/;   //정규표현식을 슬래쉬로 감싸는 방법으로 표현
+
+</script>
+2.
+<script>
+    var re=RegExp("ab+c"); //RegExp객체 생성 방법으로 표현
+
+</script>
+
+
+
+정규표현식의 예
+/Chapter(\d+)\.\d*/
+/ab*c/

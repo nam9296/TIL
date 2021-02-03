@@ -1,0 +1,61 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if question_list %}
+        {% for question in question_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'mybo:detail' question.id %}">{{ question.subject }}</a>
+            </td>
+            <td>{{ question.create_date }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">질문이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<!--템플릿 태그: html문서 내부에 동적인 코드를 삽입하기 위해 사용되는 태그-->
+<!--템플릿 태그는 {#{% 와 %}#}로 둘러쌓인 문장-->
+<!--**게시글 목록**-->
+<!--{% if question_list %}-->
+<!--    <ul>-->
+<!--    {% for question in question_list %}-->
+<!--        {#mybo//{{question.id}} => url 'detail' question.id #}-->
+<!--        <li>-->
+<!--            <a href="{% url 'mybo:detail' question.id%}">{{ question.subject }}</a>-->
+<!--        </li>-->
+<!--    {% endfor %}-->
+<!--    </ul>-->
+<!--{% else %}-->
+<!--    <p>질문이 없습니다.</p>-->
+<!--{% endif %}-->
+
+<!--&lt;!&ndash;-->
+<!--/mybo/ => 별칭 : index-->
+<!--/mybo/3 => 별칭 : detail-->
+<!--&ndash;&gt;-->
+
+<!--{% for item in question_list %}-->
+<!--    <p>순서: {{ forloop.counter }} </p>-->
+<!--    <p>{{ item }}</p>-->
+<!--{% endfor %}-->
