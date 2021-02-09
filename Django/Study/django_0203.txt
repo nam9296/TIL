@@ -1,0 +1,143 @@
+<ss3 내용>
+------
+<<admin에 키워드로 질문 검색창 만들기 & mybo 에서 질문답변 보이게>>
+
+1.
+admin.py에서
+"""
+class QuestionAdmin(admin.ModelAdmin):
+    search_fields=['subject'] # 질문 제목으로 검색
+
+admin.site.register(Question,QuestionAdmin)
+
+"""
+2. mybo 들어갔을때, 질문 목록 출력되도록 함수 지정(날짜 역순으로)
+mybo>views.py에서
+
+'''
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Question
+# Create your views here.
+
+def index(request):
+    question_list = Question.objects.order_by('create_date')
+    context = {'question_list':question_list}
+
+    return render(request,'mybo/question_list.html',context)
+
+'''
+
+
+3.템플릿 생성을 위한 디렉토리 만들기
+#render함수는 context에 있는 질문 데이터를 템플릿(mybo/question_list.html)
+# 적용하여 html 코드로 변환해서 출력
+#템플릿 파일을 생성하기 위한 폴더를 생성 #(mysite) c:\project\mysite>mkdir templates
+
+config>setting.py 에서
+
+TEMPLATES=[
+{
+'DIRS': [BASE_DIR/'templates'],  # 템플릿 여러개 등록 가능
+}
+]
+
+#이때 BASE_DIR은 같은 setting.py에 있는데 경로가 mysite임을 의미
+
+여기까지저장
+런서버 중단
+
+
+4. mysite>templates 폴더에 mybo 폴더 생성, question_list.html 생성
+
+5. 
+question_list.html에서 
+"""
+{% if question_list %}
+    <ul>
+    {% for question in question_list %}
+        <li><a href="/pybo/{{ question.id }}/">{{ question.subject }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>질문이 없습니다.</p>
+{% endif %}
+
+'''
+
+6. cmd runsever 후 http://localhost:8000/mybo/ 확인
+-> 질문목록 생성되어있음 
+
+
+7. '''
+<!--템플릿 태그: html문서 내부에 동적인 코드를 위해 사용하는 코드-->
+<!--템플릿 태그는 {%와 %}로 둘러쌓인 문장 -->
+**게시글 목록**
+{% if question_list %}  <!--만약 question_list가 있다면(안에 데이터가 있다면) -->
+    <ul>
+    {% for question in question_list %}
+        <li><a href="/mybo/{{ question.id }}/">{{ question.subject }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>질문이 없습니다.</p>
+{% endif %}
+
+{% for item in question_list %}
+    <p>순서: {{ forloop.counter }} </p>
+    <p>{{ item }}</p>
+{% endfor %}
+'''
+
+
+{{}}는 그대로 출력되는 부분
+
+
+
+--------------------------------------------
+<<각 질문을 클릭했을때 링크로 이동시키기 >>
+1. mybo>urls.py에서
+path('<int:question_id>/',views.detail),
+추가
+
+
+2. mybo>views.py
+
+def details 함수 추가
+'''
+def detail(request,question_id):
+    question = Question.objects.get(id=question_id)
+    context={'question':question}
+    return render(request,'mybo/question_detail.html', context)
+
+'''
+
+
+3. mybo에 question_detail.html 생성 후 template>mybo 안으로 이동
+
+4. qeustion_detail.html에서
+
+"""
+<h1>{{ question.subject }}</h1>
+
+<div>
+    {{ question.content }}
+</div>
+"""
+
+
+여기까지하면 db browser for sqlite 데이터 보기에서 데이터 확인 가능 
+
+
+
+지금까지 정리
+ localhost:8000/mybo/
+
+게시글선택
+ localhost:8000/mybo/4/
+->config/urls.py->
+->mybo/urls.py ->
+-> path('<int:question_id>/')와 매칭되기기때문에 
+views.detail로 이동->
+
+
