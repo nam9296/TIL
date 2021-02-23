@@ -1,0 +1,215 @@
+
+
+오늘 수업에서는 여러개의 페이지를 분할하는것을 할 예정
+질문 가짜로 만들예정
+
+프롬프트 쉘을 실행하는 코드 
+(mysite) c:\project\mysite>python manage.py shell
+
+
+
+Question class를 가져와야함
+from mybo.models import Question
+
+작성일과 작성시간을 같이 작성해야함
+from django.utils import timezone
+
+500개를 만들꺼임
+>>> from mybo.models import Question
+>>> from django.utils import timezone
+>>> for i in range(500):
+...     q=Question(subject='테스트 데이터 입니다:[%03d]' %i, content='내용없음', create_date=timezone.now())
+...     q.save()
+quit()
+
+
+
+
+rptlvks :12개 글
+1페이지 12번째 ~ 3번째 글
+2페이지 2번째 ~ 1번째 글
+
+
+일련번호 = 전체 게시글 개수 - 시작 인덱스 + 현재  인덱스 +1
+
+시작인덱스 : 게시물 시작번호(1페이지는 1번부터, 2페이지는 11번부터~)
+
+12개의 게시글, 페이지당 10개씩
+1페이지 일련번호는 12-1(0~9)+1 = 12, 11, ..., 3
+2페이지 일련번호는 12-11(0~1)+1 = 2, 1
+
+
+
+로그인 기능을 만들자
+*****************************************************************************
+(mysite) c:\project\mysite>django-admin startapp common
+common이라는 app을 생성하는 코드
+
+
+만들어지면 
+config->settings에 등록해줘야함
+common.apps에 있는 함수명을 복사해서
+settings들어가서 만들기
+
+INSTALLED_APPS = [
+    'common.apps.CommonConfig',
+    'mybo.apps.MyboConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+
+
+
+
+
+common에 urls를 만들어줄꺼임
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    #path('mybo/', views.index),
+    path('common/', include('common.urls')),  <-요고
+    path('mybo/', include('mybo.urls')),
+]
+
+common/ 으로 시작하는것들은 common.urls로 보내줘라는 의미 
+
+
+templates에 navbar를 들어가서 
+                <a class="nav-link" href="#">로그인</a>을
+                <a class="nav-link" href="{% url 'common:login'%}" >로그인</a>
+으로 수정해주자
+
+
+
+common에 urls.py를 만들고 
+from django.urls import path
+from django.contrib.auth import views as auth_views
+
+app_name='common'
+
+urlpatterns = [
+    ]
+
+를 작성한다
+
+
+그 안에 
+path('login/', auth_views.LoginView.as_view(template_name='common/login.html'), name='login'),를 작성한다 
+
+
+
+templates 폴더 안에 common 폴더를 만들고 그안에 login.html파일을 만든다
+
+login.html안에 
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-3">
+    <form method="post" class="post-form" action="{% url 'common:login' %}">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <div class="form-group">
+            <label for="username">사용자ID</label>
+            <input type="text" class="form-control" name="username" id="username"
+                   value="{{ form.username.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" name="password" id="password"
+                   value="{{ form.password.value|default_if_none:'' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">로그인</button>
+    </form>
+</div>
+{% endblock %}
+
+
+를 복사해서 넣는다  이것은 로그인 하는 내용임
+
+
+
+templates 폴더안에 form_errors.html 파일을 만들고 
+다음을 복사해서 넣는다
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}  <!-- 필드 오류를 출력한다. -->
+            <div class="alert alert-danger">
+                <strong>{{ field.label }}</strong>
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}   <!-- 넌필드 오류를 출력한다. -->
+        <div class="alert alert-danger">
+            <strong>{{ error }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+
+config - settings.py 들어가서 맨밑에 다음을 작성함
+LOGIN_REDIRECT_URL="/" # 로그인 성공시 index 페이지로 이동
+
+config-urls.py 들어가서 
+urlpatterns = [
+    path('',views.index, name='index'), 요고 추가 
+    path('admin/', admin.site.urls),
+    #path('mybo/', views.index),
+    path('common/', include('common.urls')),
+    path('mybo/', include('mybo.urls')),
+
+이후 로그인후 초기화면이 나오는지 확인
+
+아 근데 로그인후에도 로그인이라고 떠있네 ? 
+이거 수정해야함
+
+templates-navbar.html 들어가서 
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <a class="navbar-brand" href="{% url 'mybo:index' %}">mybo</a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'common:logout'%}" >{{user.username}}
+                    로그아웃
+                </a>
+                
+                {% else %}
+                <a class="nav-link" href="{% url 'common:login'%}" >로그인</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
+로 수정하고 
+
+common-urls.py 열어서 
+from django.urls import path
+from django.contrib.auth import views as auth_views
+
+app_name='common'
+#로그인 기능은 LoginView를 이용
+urlpatterns = [
+    path('login/', auth_views.LoginView.as_view(template_name='common/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    ]
+로 수정
+
+로그아웃후에 메인 게시판화면으로 갈수잇도록 수정하자
+config-settings에서 
+LOGIN_REDIRECT_URL="/" # 로그인 성공시 index 페이지로 이동
+LOGOUT_REDIRECT_URL="/"
+로 수정
+
+
+
+
