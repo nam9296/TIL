@@ -1,0 +1,294 @@
+id<-c("a1","a2","a3")
+name<-c("X","y","z")
+price<-c(1000,2000,3000)
+product<-data.frame(id,name,price,stringsAsFactors = FALSE)
+product
+str(product)
+
+# a4,s,4000을 추가
+product<-rbind(product,c("a4","s",4000))
+product
+
+new.rows<-data.frame(id=c("a5","a6"),
+           name=c("i","j"),
+           price=c(5000,6000))
+
+# 주의사항 : 열 이름이 동일해야함
+product<-rbind(product,new.rows)
+
+
+# cbind(): 새로운 열을 추가
+cbind(product,madein=c("kor","chi","chi","kor","kor","usa"))
+# 다른 방법
+product$madein<-c("kor","chi","chi","kor","kor","usa")
+
+# 두개 이상의 열을 추가
+new.cols<-data.frame(manu=c("aa","bb","aa","cc","aa","bb"),
+           quantity=c(10,20,30,20,10,25))
+new.cols           
+
+product<-cbind(product,new.cols)
+product
+
+
+df1<-data.frame(sex="f",months=1, weight=3.5)
+df2<-data.frame(sex="m",months=3, weight=4.5)
+df3<-data.frame(sex="m",months=4, weight=5.5)
+df4<-data.frame(sex="f",months=7, weight=6.5)
+df5<-data.frame(sex="f",months=8, weight=7.5)
+lst<-list(df1,df2,df3,df4,df5)
+lst
+
+lst[1] # list형식
+lst[[1]] # data.frame 형식
+
+str(lst[[1]])
+
+rbind(lst[[1]],lst[[2]])
+
+# rbind(lst[[1]],lst[[2]],...,lst[[120]])
+# do.call(적용하고자하는 함수,리스트) 
+#: 리스트 내의 여러 개 데이터 프레임을 합치는 작업
+do.call(rbind,lst)
+
+
+lst1<-data.frame(sex="f",months=1, weight=3.5)
+lst2<-data.frame(sex="m",months=3, weight=4.5)
+lst3<-data.frame(sex="m",months=4, weight=5.5)
+lst4<-data.frame(sex="f",months=7, weight=6.5)
+lst5<-data.frame(sex="f",months=8, weight=7.5)
+
+lst<-list(lst1,lst2,lst3,lst4,lst5)
+lst
+
+# lst에 저장되어 있는 리스트들을 묶어서 하나의 데이터프레임으로 생성
+#do.call(rbind,lst)
+#lst[1]<-as.data.frame(lst[1]) # 리스트-> 데이터프레임
+#lst[2]<-as.data.frame(lst[2])
+#...
+#lst[5]<-as.data.frame(lst[5])
+#이렇게 해도되긴하지만 자료가 많으면 가능한 작업이 아니다.
+
+# lapply(): 첫번째 인수에는 리스트, 적용 함수(반복)
+lapply(lst, as.data.frame) 
+# lst(리스트)에 저장되어 있는 각 원소에 대해 
+# as.data.frame를 반복해서 적용해라
+
+
+do.call(rbind,lapply(lst, as.data.frame))
+# lst(리스트)에 저장되어 있는 각각의 요소에 대해
+# as.data.frame 함수를 적용하고, 변환된 데이터프레임들을
+# rbind함수를 모두 적용하여 하나의 데이터프레임으로 연결
+
+# merge함수 : 데이터 프레임을 결합하는 함수
+
+state.x77
+class(state.x77) # matrix
+
+states<-data.frame(state.x77)
+states
+str(states)
+
+row.names(states) # 행이름 추출
+
+#행이름들을 열의 요소로 추가하고싶다.
+states$name<-row.names(states)
+states
+colnames(states)
+#요소로 추가했으니 행이름을 지우자
+row.names(states)<-NULL
+states
+head(states)
+tail(states)
+tail(states,10)
+
+#states에서 Income이 5000달러 이상에 해당되는 자료를 출력
+states[states$Income>5000,"name"]
+states[states$Income>5000,c("name","Income")]
+
+#states에서 Area이 100000 이상에 해당되는 자료를 출력(name, Area)
+states[states$Area>100000,c("name","Area")]
+
+
+
+
+#데이터프레임 결합(기본값:공통으로 열(name)이 일치하는 행만 선택:조건이있다면 두조건을 만족하는 열만 출력)
+merge(rich.states, large.states) #all=FALSE default
+
+#         name Income   Area
+# 1     Alaska   6315 566432
+# 2 California   5114 156361
+# 3     Nevada   5149 109889
+
+merge(rich.states, large.states,all=TRUE)
+#  Area의 조건에는 만족하지만 income에 적용된 조건에는 만족이아니라면 NA로 출력이되고 반대상황도 마찬가지
+
+#            name Income   Area
+# 1        Alaska   6315 566432
+# 2       Arizona     NA 113417
+# 3    California   5114 156361
+# 4      Colorado     NA 103766
+# 5   Connecticut   5348     NA
+# 6      Illinois   5107     NA
+# 7      Maryland   5299     NA
+# 8       Montana     NA 145587
+# 9        Nevada   5149 109889
+# 10   New Jersey   5237     NA
+# 11   New Mexico     NA 121412
+# 12 North Dakota   5087     NA
+# 13        Texas     NA 262134
+
+#subset(적용할곳,조건식):행과 열을 선택
+
+states[states$Income>5000,]
+# 위아래 둘다 결과가 같습니다
+subset(states,Income>5000) 
+#stateds집합에서 Income>5000조건을 만족하는 부분집합을 추출
+
+subset(states, subset=(Income>5000 & Area>50000),select=1:3) 
+#&,| 적용가능
+#select에는 이름도 올수 있음
+#두가지 시에는 c(Income, Illit eracy)
+
+#name이 알래스카인 모든 행을 추출
+subset(states, name=="Alaske")
+
+mtcars
+#mpg가 30보다 큰 자동차 데이터 출력
+#1
+mtcars[mtcars['mpg']>30,]
+#2
+subset(mtcars,mpg>30)
+subset(mtcars,subset=mpg>30)
+
+#mpg가 30보다 큰 자동차 데이터 출력
+
+subset(mtcars,subset=mpg>30, select = mpg)
+
+#실린더(cyl)가 4개 이면서 am이 0인 자료의 mpg,hp,wt를 출력
+
+
+subset(mtcars,subset= (cyl==4 & am==0), select = c(mpg,hp,wt))
+#                mpg hp    wt
+# Merc 240D     24.4 62 3.190
+# Merc 230      22.8 95 3.150
+# Toyota Corona 21.5 97 2.465
+subset(x=mtcars,subset=(mpg>mean(mpg)), select = c(mpg,hp,wt))
+subset(mtcars,subset=(mpg>mean(mpg)), select = c(mpg,hp,wt))
+subset(mtcars,mpg>mean(mpg), c(mpg,hp,wt))
+
+
+
+
+iris
+class(iris)
+colnames(iris)
+# subset함수 Sepal.Width, Petal.Length 열을 추출
+subset(iris, select = c(Sepal.Width, Petal.Length))
+
+subset(iris, select = -c(Sepal.Width, Petal.Length))
+
+subset(iris, select = -Sepal.Width)
+
+
+# iris Sepal.Length와 Sepal.Width간 비율
+iris$Sepal.Length/iris$Sepal.Width
+# 특성공학(feature engineering)
+# 주어진 데이터 컬럼으로 부터 연산을 수행하여 새로운 컬럼값을 생성 
+with(iris,Sepal.Length/Sepal.Width)
+
+#with(iris,{
+  #명령문 기술
+#})
+
+# 기술 통계
+summary(iris$Sepal.Length)
+
+with(iris,{
+  print(summary(Sepal.Length))
+  #plot(Sepal.Length,Sepal.Width)
+  #plot(Petal.Length,Petal.Width)
+})
+
+
+with(iris,{
+  stats<-summary(Sepal.Length)
+  stats
+})
+
+#stats
+# with 구문 밖에서는 stats객체 에러가 나옴
+
+with(iris,{
+  stats<<-summary(Sepal.Length)
+  stats
+})
+stats
+
+# <<- 를 사용하니 밖에서도 된다.
+
+
+iris$Sepal.Ratio<-iris$Sepal.Length/iris$Sepal.Width
+
+iris<-within(iris,Sepal.Ratio<-Sepal.Length/Sepal.Width)
+iris
+
+# with, within 거의 동일하다.(코드의 양을 줄여줌)
+# 차이점은 within은 데이터 수정이 가능
+# with는 데이터 수정 불가능
+
+within(iris,{
+  ifelse(is.na(Sepal.Ratio),median(Sepal.Ratio,na.rm=T),Sepal.Ratio)
+})
+# Sepal/Ratio열의 값이 na-> 중앙값으로 대체
+
+
+
+
+#ifelse(is.na(Sepal.Ratio),median(Sepal.Ratio,na.rm=T),Sepal.Ratio)
+#            조건                참                         거짓
+
+#sqldf 패키지 : SQL 명령문을 사용할 수 있음
+install.packages("sqldf") #패키지 설치
+library(sqldf)# 설치된 패키지를 프로그램에서 불러오기
+
+#SQL(Structured Query Language) : 
+# 데이터 베이스에 데이터를 검색/수정/삭제/추가 작업을
+# 수행할 수 있도록 해주는 사전에 약속된 데이터베이스 표준 질의어
+#검색(select)/수정(update)/삭제(delete)/추가(insert into)
+mtcars
+sqldf("select*from mtcars")
+# ㄴ>mtcars에 저장되어 있는 모든(*) 데이터를 추출하시오를 의미
+# 검색 = select 추출 컬럼 1,....,추출 컬럼n from table이름
+
+sqldf("select cyl from mtcars")
+
+sqldf("select cyl, hp, gear from mtcars")
+
+sqldf("select cyl, hp, gear from mtcars", row.names=TRUE)
+
+mtcars
+sqldf("select * from mtcars", row.names=TRUE)
+
+sqldf("select * from mtcars where mpg>30", row.names=TRUE)
+
+sqldf("select * from mtcars where mpg>30 order by hp", row.names=TRUE)
+
+sqldf("select avg(mpg) as avg_mpg from mtcars where mpg>30 group by cyl", row.names=TRUE)
+
+
+
+
+state.x77
+class(state.x77) # 배열열
+st<-state.x77
+# st를 데이텊프레임으로 바꾸세요
+st<-data.frame(st)
+colnames(st)
+rownames(st)
+
+# 차원?
+dim(st) # 50개, 변수(피처) 8개
+
+rowSums(st)
+rowMeans(st)
