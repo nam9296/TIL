@@ -107,7 +107,7 @@ month.name[month]
 10%/%3  # 10을 3으로 나눈 몫
 
 
-# 벡터연산은 원소와 원서끼리 연산 수행
+# 벡터연산은 원소와 원소끼리 연산 수행
 c(1,2,3)+c(4,5,6)
 x <-c(1,2,3)
 x*c(4,5,6)
@@ -229,7 +229,7 @@ sqrt(1:5)
 # 유효자릿수가 소수점 아래 7자리가 최대
 options("digits") # 유효자리수
 
-# 유효자릿수 기준 반올
+# 유효자릿수 기준 반올림
 signif(456.789,digits=2)
 signif(456.789,digits=3)
 signif(456.789,digits=4)
@@ -335,7 +335,6 @@ cumsum(traffic.death)
 
 traffic.death<-c(10,20,NA,30,20)
 cumsum(traffic.death)
-
 
 # diff함수 : 뒤의 값과 앞의 값의 차 
 traffic.death<-c(10,20,30,20)

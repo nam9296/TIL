@@ -1,0 +1,265 @@
+# 문자열 대체 : 
+# grep함수 : fixed=FALSE(default)
+# pattern에 작성된 식을 정규표현식으로 해석
+# fixed=TRUE 이라면 
+# pattern에 작성한 값을 문자열로 취급함
+
+words<- c("at","bat","cat","cheap","check","cheese","chick","hat","chase")
+grep("che",words,value = TRUE)
+grep("che",words)
+
+grep("at",words,value = TRUE)
+# 정규표현식이 포함된 문자열 추출
+
+#c 또는 h가 포함된 문자열 검색
+grep("[ch]",words,value = TRUE)
+grep("c|h",words,value = TRUE)
+
+# a 또는 t가 포함된 문자열 검색
+grep("[at]",words,value = TRUE)
+grep("a|t",words,value = TRUE)
+
+# ch 또는 at가 포함된 문자열 검색
+grep("[ch|at]",words,value = TRUE)
+
+# check,chick ch+e또는i+ ck
+grep("ch(e|i)ck",words,value = TRUE)
+
+# ? => ?앞에 문자가 0번 또는 1번 나타나는 패턴(최대 1번)
+# * => *앞에 문자가 0번 이상 반복되는 패턴 (최소 0번)
+# + => +앞에 문자가 1번 이상 반복되는 패턴 (최소 1번)
+words<- c("at","bat","cat","cheap","check",
+          "cheese","chick","hat","chase",
+          "chaenomeles","chasse")
+
+grep("chas?e",words,value = TRUE)
+grep("chas*e",words,value = TRUE)
+grep("chas+e",words,value = TRUE)
+
+#chase, cheese
+grep("ch(a*|e*)se",words,value = TRUE)
+
+
+# ^ 와 $ 이용하기
+grep("^a",words,value = TRUE) #c로 시작
+grep("t$",words,value = TRUE) #t로 끝남
+
+# . : 모든 문자를 의미
+#.*
+
+# c로 시작하고 t로 끝나는 모든 문자열을 검색
+grep("^c.t$",words,value = TRUE)
+
+# at앞에 아무 문자도 없거나 h 또는 c로 시작하는 문자열을 검색
+grep("^[hc]?at",words,value = TRUE)
+
+
+
+words2<-c("12 Dec", "OK", "http://", "<TITLE>Time?</TITLE>","12345", "Hi there")
+
+# [[:alnum:]] : 알파벳 +숫자
+# [[:digit:]] : 숫자
+# [[:punct:]] : 문장부호, 특수문자
+# [[:space:]] : 공백
+# [[:alpha:]] : 알파벳
+
+grep("[[:alnum:]]",words2,value = TRUE)
+grep("\\w",words2,value = TRUE)
+
+
+
+grep("[[:alpha:]]",words2,value = TRUE)
+
+grep("[[:digit:]]",words2,value = TRUE)
+
+grep("[[:punct:]]",words2,value = TRUE)
+
+grep("[[:space:]]",words2,value = TRUE)
+grep("\\s",words2,value = TRUE)
+
+
+Sys.Date()
+date()
+Sys.time()
+
+class(Sys.Date()) # Date 타입
+class("2021-02-26") # character
+# 문자열 -> 날짜 변환
+
+as.Date("2021-02-26")
+class(as.Date("2021-02-26")) # Date타입
+
+# as.Date("02/26/2021") 에러 나옴 기본형식이 아님
+as.Date("02/26/2021",format="%m/%d/%y") # 기본형식이 아니면 format 지정
+
+d<-as.Date("2021-02-26")
+format(d,format="%m/%d/%y")
+class(format(d,format="%m/%d/%y"))
+
+today<-Sys.Date()
+today
+format(today, format="%y/%m/%d %A")
+
+# 특정 날짜의 요일정보를 출력
+weekdays(as.Date("2021-02-27"))
+
+# 벡터연산이 가능함
+d<-as.Date("2021-02-27")
+d-1
+d+1:10
+
+weekdays(d)
+weekdays(d+1:10)
+
+# seq함수 : 연속된 날짜 생성
+s<-as.Date("2021-02-26")
+e<-as.Date("2021-04-01")
+seq(from=s, to=e, by=1)
+seq(s,e,1)
+
+seq(from=s, by=1, length.out=10)
+
+seq(from=s, by=7, length.out=9)
+
+seq(from=s, by="week", length.out=9)
+
+seq(from=s, by="month", length.out=9)
+seq(from=s, by="2 month", length.out=9)
+
+seq(from=s, by="year", length.out=9)
+seq(from=s, by="2 year",length.out=9)
+
+seq(from=as.Date("2021-01-30"), by="month",length.out=5)
+
+s<-as.Date("2021-02-26")
+qrt<-seq(from=s,by="3 months", length.out=4)
+qrt
+months(qrt)
+quarters(qrt) # 분기 정보 출력
+
+
+# 입력
+product<-data.frame()
+product
+
+product<-edit(product) # 편집기 창이 뜸
+product
+# product<-edit(product) fix(product)와 같은 문장
+str(product)
+
+# 저장하기
+write.csv(product, file="myproduct.csv")
+product
+# 아 행번호가 들어가있네 거슬리게
+write.csv(product, file="myproduct.csv", row.names = FALSE)
+
+# rwork 파일에 들어가서 열어보고 name 요소들 복사하기
+p<-readClipboard()
+p
+# 방금 복사했던 내용을 읽어오는구나, 엑셀에서 복사를 하면 클립보트 형식이구나
+# 전체를 복사해보자
+p<-readClipboard()
+p 
+# 아 데이터들 사이에 \t가 들어있네 
+# 이것을 테이블 형식이라고 함
+# read.table(file="clipboard",sep='\t')
+# 아 첫번째 줄을 데이터로 읽어버렷네 
+p<-read.table(file="clipboard",sep='\t',header=TRUE)
+p
+
+
+
+read.csv("product.csv")
+
+read.csv("product-with-no-header.csv", header=FALSE)
+
+p<-read.csv("product.csv", stringsAsFactors = FALSE)
+
+str(p)
+
+p<-read.csv("product.csv", as.is = TRUE)
+# as.is=TRUE 는 stringsAsFactors = FALSE 와 같음
+p
+
+p<-read.table("product.txt",header = TRUE)
+p
+str(p)
+
+
+p<-read.table("product-colon.txt",sep=':',header = TRUE)
+p
+str(p)
+
+
+
+
+#NA : 데이터가 누락
+
+p<-read.table("product-missing.txt",header=TRUE,na.strings='.')
+p
+# 원본데이터에 . 을 "누락", USB를 "몰라"로 바꿔보자
+p<-read.table("product-missing.txt",header=TRUE,na.strings=c('몰라','누락'))
+p
+# 왜 . 에는 NA이고 USB자리에는 <NA>일까 ?
+# 정답은 character 형식이라서 
+
+#read.table()는 #으로 시작하는 라인은 주석문으로 간주하고 무시함
+
+read.table("product-comment.txt",header=TRUE)
+
+
+
+brand.eval<-read.table("brand-eval.csv",header=TRUE,sep = ',',row.names = "id")
+brand.eval
+str(brand.eval)
+
+brand.eval<-read.table("brand-eval.csv",header=TRUE,sep = ',',row.names = "id",
+                       colClasses = c("character","character","numeric","numeric","numeric"))
+brand.eval
+
+
+# 엑셀 데이터 읽기
+install.packages("openxlsx")
+library(openxlsx)
+read.xlsx("product.xlsx",sheet=1)
+
+
+
+# https://archive.ics.uci.edu/ml/datasets.php
+# iris검색 클릭 ->data folder클릭-> iris.data클릭
+# https://archive.ics.uci.edu/ml/machine-learning-databases/iris/ 에서 iris.data 링크 복사
+
+#https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data
+url<-"https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+iris.uci<-read.csv(url,header = FALSE)
+iris.uci
+
+download.file(url=url,destfile = "myIris.csv")
+
+#http://seanlahman.com/files/database/baseballdatabank-master_2016-03-02.zip
+url<-"http://seanlahman.com/files/database/baseballdatabank-master_2016-03-02.zip"
+local.copy<-"baseball.zip"
+download.file(url,local.copy)
+
+bs<-read.csv(unzip(zipfile = local.copy, "baseballdatabank-master/core/Salaries.csv"))
+bs
+
+
+
+
+install.packages("ggplot2")
+library("ggplot2")
+mpg
+mpg$manufacturer
+
+midwest<-as.data.frame(midwest) # tibble-> dataframe
+
+install.packages("dplyr")
+library(dplyr)
+
+#rename(데이터프레임,변경후컬럼이름=변경전 컬럼이름)
+midwest
+
+
+rename(midwest, cg=category)
+
