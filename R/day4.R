@@ -115,7 +115,7 @@ states[states$Area>100000,c("name","Area")]
 #데이터프레임 결합(기본값:공통으로 열(name)이 일치하는 행만 선택:조건이있다면 두조건을 만족하는 열만 출력)
 merge(rich.states, large.states) #all=FALSE default
 
-#         name Income   Area
+ #         name Income   Area
 # 1     Alaska   6315 566432
 # 2 California   5114 156361
 # 3     Nevada   5149 109889

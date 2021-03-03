@@ -54,7 +54,7 @@ traffic.death[6]
 names(traffic.death)<-c("mon","tue","wed","thu","fri","sat","sun")
 names(traffic.death)
 traffic.death["sat"]
-
+traffic.death
 # 사망자 수가 100명 이상인 요일만 출력
 traffic.death[traffic.death>=100]
 names(traffic.death[traffic.death>=100])
@@ -62,7 +62,7 @@ names(traffic.death[traffic.death>=100])
 
 # 팩터(factor) : 카테고리 구분하는 목적으로 사용되는 범주형 데이터
 # 레벨(level) : 범주형(팩터)에 포함된 범주값
-# factor()함수 : 범주형 ㅔㄷ이터로 사용하고자 하는 문자 또는 숫자 벡터를 팩터로 변환해주는 함수
+# factor()함수 : 범주형 데이터로 사용하고자 하는 문자 또는 숫자 벡터를 팩터로 변환해주는 함수
 
 review <- c("good","good","bad","indifferent",
             "bad", "good") 
@@ -85,7 +85,7 @@ everyday.factor<-factor(everyday)
 everyday.factor
 # 이렇게 하면 틀린방법 레벨이 3개밖에없음
 
-#이게 맞는 방법 (레벨스를 지정해줄 수 있다.)
+# 이게 맞는 방법 (레벨스를 지정해줄 수 있다.)
 everyday<-c("mon","mon","fri","tue","tue")
 everyday.factor<-factor(everyday, levels =c("mon","tue","wed","thu","fri","sat","sun"))
 everyday.factor
@@ -238,6 +238,7 @@ rnames<-c("seoul","busan","daegu","gwangju","jeonju")
 cnames<-c("seoul","busan","daegu","gwangju","jeonju")
 
 city.distance.mat<-matrix(data=data,nrow =5,ncol = 5 ,byrow=TRUE, dimnames=list(rnames,cnames)) 
+city.distance.mat
 city.distance.mat["seoul",]
 city.distance.mat["seoul","busan"]
 city.distance.mat[,"seoul"]

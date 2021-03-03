@@ -11,6 +11,7 @@ a
 # array함수 : 다차원 배열 생성
 
 ary<-array(1:24,c(3,4,2))
+ary
 ary[1,3,2]
 ary[1,,]
 ary[,1,]
