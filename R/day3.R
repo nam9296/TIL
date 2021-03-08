@@ -30,7 +30,7 @@ ary[,1,2,drop=FALSE]
 # 벡터와 행렬은 원소의 데이터 타입이 모두 같아야함
 lst<-list(0.6,0.9,0.5)
 lst
-# [[1]]은 원소의 윛치(인덱스)를 의미
+# [[1]]은 원소의 위치(인덱스)를 의미
 # [1]0.6은 원소의 값
 # 리스트는 스칼라, 벡터(숫자/문자), 행렬, 함수 저장 기능
 
@@ -340,7 +340,7 @@ str(state.abb)
 str(state.name)
 str(state.region)
 str(state.area)
-
+table(state.region)
 
 us.state<-data.frame(state.abb,state.name,state.region,state.area)
 us.state

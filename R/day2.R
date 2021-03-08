@@ -77,8 +77,10 @@ str(review)
 
 
 # 팩터형 -> 숫자벡터로 변환
-as.numeric(review.factor)
+review.factor<-as.numeric(review.factor)
 
+# 숫자벡터-> 팩터형으로 변환
+review.factor<-as.factor(review.factor)
 
 everyday<-c("mon","mon","fri","tue","tue")
 everyday.factor<-factor(everyday)
@@ -184,6 +186,8 @@ cbind(1:3,4:6,matrix(7:12,3,2))
 matrix(1:6,2,3)
 matrix(7:12,2,3)
 rbind(matrix(1:6,2,3),matrix(7:12,2,3))
+cbind(matrix(1:6,2,3),matrix(7:12,2,3))
+
 
 c<-1:12
 mat<-matrix(v,3,4)
@@ -267,7 +271,7 @@ w
 matrix(w,2,3)
 matrix(w,3,2)
 matrix(w,2,3)%*%matrix(w,3,2)# 행렬의곱 %*%
-
+matrix(w,3,2)%*%matrix(w,2,3)
 
 # 행렬과 벡터의 곱
 
